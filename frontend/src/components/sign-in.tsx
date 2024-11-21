@@ -8,7 +8,6 @@ import {Button} from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -51,7 +50,11 @@ export function Signin() {
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder='Enter your email' {...field} />
+                  <Input
+                    className='bg-white'
+                    placeholder='Enter your email'
+                    {...field}
+                  />
                 </FormControl>
 
                 <FormMessage />
@@ -65,14 +68,20 @@ export function Signin() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input placeholder='Enter your Password' {...field} />
+                  <Input
+                    className='bg-white'
+                    placeholder='Enter your Password'
+                    {...field}
+                  />
                 </FormControl>
 
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type='submit'>Submit</Button>
+          <Button className='hover:bg-slate-600' type='submit'>
+            Submit
+          </Button>
         </form>
       </Form>
       <p className='py-5'>

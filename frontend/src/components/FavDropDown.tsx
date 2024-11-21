@@ -1,28 +1,20 @@
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card"
 
 export function FavDropDown() {
   return (
     <div>
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          <img src='./public/fav.png' alt='cart' className='h-6 w-6'></img>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>Profile</DropdownMenuItem>
-          <DropdownMenuItem>Billing</DropdownMenuItem>
-          <DropdownMenuItem>Team</DropdownMenuItem>
-          <DropdownMenuItem>Subscription</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <HoverCard>
+        <HoverCardTrigger>
+          <img src='./public/fav.png' alt='fav' className='h-6 w-6'></img>
+        </HoverCardTrigger>
+        <HoverCardContent>
+          The React Framework – created and maintained by @vercel.
+        </HoverCardContent>
+      </HoverCard>
     </div>
   )
 }

@@ -1,6 +1,9 @@
 import {Button} from "@/components/ui/button"
+import {useNavigate} from "react-router-dom"
 
 export function Home() {
+  const navigate = useNavigate()
+
   return (
     <div>
       <div className='h-screen  w-full '>
@@ -16,7 +19,9 @@ export function Home() {
           <p className='mt-4 text-lg text-gray-600 pb-5'>
             Discover unique furniture for every room in your home.
           </p>
-          <Button className='bg-[#b88e2f] text-white font-bold text-xl p-6 w-52 rounded-lg mt-5'>
+          <Button
+            onClick={() => navigate("./login")}
+            className='bg-[#b88e2f] text-white font-bold text-xl p-6 w-52 rounded-lg mt-5'>
             Buy Now
           </Button>
         </div>

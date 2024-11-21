@@ -7,6 +7,7 @@ import {Shop} from "./pages/Shop"
 import {Fav} from "./pages/Fav"
 import {Checkout} from "./pages/Checkout"
 import {Login} from "./pages/Login"
+import {Signup} from "./pages/Signup"
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path='/shop' element={<Shop />}></Route>
             <Route path='/cart' element={<Cart />}></Route>
             <Route path='/login' element={<Login />}></Route>
+            <Route path='/signup' element={<Signup />}></Route>
           </Routes>
         </Layout>
       </BrowserRouter>

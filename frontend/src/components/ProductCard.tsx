@@ -1,10 +1,14 @@
 export function ProductCard() {
   return (
     <div className='flex flex-col h-96 w-64 bg-slate-300 m-10'>
-      <img src='' alt='product' className='bg-blue-200 h-72 w-64'></img>
+      <div className='relative'>
+        <img src='' alt='product' className='bg-blue-200 h-72 w-64'></img>
+        {/* Favorite Button */}
+        <button className='absolute bottom-2 right-2  rounded-full '>❤️</button>
+      </div>
       <h1 className='text-lg font-semibold p-2'>Product Name</h1>
-      <h2 className='font-light pl-2'>description of the product</h2>
-      <h1 className='text-lg font-semibold p-2'>$2523</h1>
+
+      <h1 className='text-lg font-semibold p-2 text-slate-700'>$2523</h1>
     </div>
   )
 }

@@ -1,16 +1,16 @@
 import {PageWrapper} from "@/components/pagewrapper"
-import {Signin} from "@/components/sign-in"
 
+import {SignupForm} from "@/components/signupform"
 
-export function Login() {
+export function Signup() {
   return (
     <div>
       <PageWrapper
-        title='Login'
-        discription='Welcome back'
+        title='Signup'
+        discription='Register to get started'
         imageSrc='./public/loginbg.jpg'
         altText='sdaf'>
-        <Signin />
+        <SignupForm />
       </PageWrapper>
     </div>
   )
