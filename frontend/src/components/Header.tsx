@@ -1,5 +1,6 @@
 import {CartDropDown} from "./CartDropDown"
 import {FavDropDown} from "./FavDropDown"
+import {Search} from "./Search"
 
 export function Header() {
   return (
@@ -48,12 +49,7 @@ export function Header() {
           <a href='/user'>
             <img src='./public/user.png' alt='user' className='h-6 w-6'></img>
           </a>
-          <a href='/search'>
-            <img
-              src='./public/search.png'
-              alt='search'
-              className='h-6 w-6'></img>
-          </a>
+          <Search />
           <FavDropDown />
 
           <CartDropDown />
