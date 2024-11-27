@@ -1,12 +1,12 @@
-import {Banner} from "../components/Banner"
-import {FilterBar} from "../components/FilterBar"
-import {ProductCard} from "../components/ProductCard"
+import {Banner} from '../components/Banner';
+import {FilterBar} from '../components/FilterBar';
+import {ProductCard} from '../components/ProductCard';
 
-const cards: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+const cards: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export function Shop() {
   return (
-    <div>
+    <>
       <div className='flex flex-col justify-center items-center'>
         <Banner heading='Shop' subheading='Shop' />
         <FilterBar />
@@ -16,6 +16,6 @@ export function Shop() {
           ))}
         </div>
       </div>
-    </div>
-  )
+    </>
+  );
 }

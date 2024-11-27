@@ -1,6 +1,5 @@
-import {CartDropDown} from "./CartDropDown"
-import {FavDropDown} from "./FavDropDown"
-import {Search} from "./Search"
+import {Search} from './Search';
+import {UserDropDown} from './UserDropDown';
 
 export function Header() {
   return (
@@ -46,15 +45,18 @@ export function Header() {
       {/* User Section */}
       <div className='basis-1/3 text-right pr-16'>
         <span className='flex items-center gap-10 justify-end'>
-          <a href='/user'>
-            <img src='./public/user.png' alt='user' className='h-6 w-6'></img>
-          </a>
+          <UserDropDown />
           <Search />
-          <FavDropDown />
 
-          <CartDropDown />
+          <a href='/fav'>
+            <img src='/fav.png' alt='user' className='h-6 w-6'></img>
+          </a>
+
+          <a href='/cart'>
+            <img src='/cart.png' alt='user' className='h-6 w-6'></img>
+          </a>
         </span>
       </div>
     </div>
-  )
+  );
 }

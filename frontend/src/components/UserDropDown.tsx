@@ -5,14 +5,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from '@/components/ui/dropdown-menu';
 
-export function CartDropDown() {
+export function UserDropDown() {
   return (
     <div>
       <DropdownMenu>
-        <DropdownMenuTrigger>
-          <img src='./public/cart.png' alt='cart' className='h-6 w-6'></img>
+        <DropdownMenuTrigger className='flex justify-center items-center'>
+          <img src='/user.png' alt='cart' className='h-6 w-6'></img>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -24,5 +24,5 @@ export function CartDropDown() {
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  )
+  );
 }
