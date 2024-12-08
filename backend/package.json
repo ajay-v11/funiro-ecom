@@ -1,18 +1,26 @@
 {
-  "name": "backend",
+  "name": "furnero",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --minify"
   },
   "dependencies": {
+    "@appollohera/furnero": "^1.0.1",
     "@prisma/client": "^6.0.0",
     "@prisma/extension-accelerate": "^1.2.1",
+    "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^16.4.7",
+    "fs": "^0.0.1-security",
     "hono": "^4.6.12",
-    "prisma": "^6.0.0"
+    "prisma": "^6.0.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241112.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/node": "^22.10.1",
     "wrangler": "^3.88.0"
   }
 }

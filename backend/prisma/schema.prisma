@@ -14,15 +14,20 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(uuid())
-  email    String  @unique
-  name     String?
+  id       String @id @default(uuid())
+  email    String @unique
+  name     String
   password String
 }
 
 model Product {
-  id        Int     @id @default(autoincrement())
-  title     String
-  sku       String
-  available Boolean @default(true)
+  id        Int      @id @default(autoincrement())
+  name      String   @map("Products_name")
+  url       String   @map("Products_url")
+  price     String   @map("Products_price")
+  sku       String   @map("Products_sku")
+  imageUrl  String   @map("Products_imageUrl")
+  details   String   @map("Products_details")
+  createdAt DateTime @default(now())
+  available Boolean  @default(true)
 }

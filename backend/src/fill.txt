@@ -1,0 +1,47 @@
+const {PrismaClient} = require('@prisma/client');
+const prisma = new PrismaClient();
+const csv = require('csv-parser');
+const fs = require('fs');
+
+// Parse CSV and insert data into the database
+fs.createReadStream('./run_results.csv')
+  .pipe(csv())
+  .on('data', async (row) => {
+    try {
+      // Map fields from the CSV row to your database schema
+      const {
+        Prodcuts_name, // typo in the csv file(all "Products" are replaced with "Prodcuts")
+        Prodcuts_url,
+        Prodcuts_price,
+        Prodcuts_sku,
+        Prodcuts_imageUrl,
+        Prodcuts_details,
+      } = row;
+
+      // Skip rows with missing required fields
+      if (!Prodcuts_name || !Prodcuts_price || !Prodcuts_sku || !Prodcuts_url) {
+        console.error('Skipping row with missing required fields:', row);
+        return;
+      }
+
+      // Insert data into the database
+      await prisma.product.create({
+        data: {
+          name: Prodcuts_name,
+          url: Prodcuts_url,
+          price: Prodcuts_price,
+          sku: Prodcuts_sku,
+          details: Prodcuts_details || '', // Default to an empty string if undefined
+          imageUrl: Prodcuts_imageUrl || '', // Handle optional fields
+        },
+      });
+
+      console.log('Row inserted successfully:', Prodcuts_name);
+    } catch (error) {
+      console.error('Error inserting row:', error.message, row);
+    }
+  })
+  .on('end', () => {
+    console.log('CSV file successfully processed.');
+    prisma.$disconnect(); // Close the Prisma connection
+  });

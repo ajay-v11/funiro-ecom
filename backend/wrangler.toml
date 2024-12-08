@@ -1,12 +1,14 @@
-name = "backend"
+name = "furnero"
 main = "src/index.ts"
 compatibility_date = "2024-12-01"
 
-# compatibility_flags = [ "nodejs_compat" ]
+compatibility_flags = [ "nodejs_compat" ]
+
 
 [vars]
 DATABASE_URL="prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiYTE0N2MzZjYtNWRkNi00NzljLWFmYWItNTkyNGRiNmZjYjk1IiwidGVuYW50X2lkIjoiYjVlZjY4MmY2Mjc3NjEzZTI1NTYzZWNiNTgwNTIzMjNiZmVhODg3MmI2ODM3M2QzOGI5MmRlNjAwZDA3ZWJmNiIsImludGVybmFsX3NlY3JldCI6IjllYWViY2I0LTE3MzUtNDdjYy1iZWMxLTNmYmMxY2RmMTI0MSJ9.GOoMnygGkFjQCSdHNDgi_8BkxKQXvm8DYK94NQebbVw"
-# MY_VAR = "my-variable"
+
+JWT_SECRET="peterparker"
 
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"

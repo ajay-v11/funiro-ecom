@@ -1,8 +1,8 @@
-import {zodResolver} from "@hookform/resolvers/zod"
-import {useForm} from "react-hook-form"
-import {z} from "zod"
+import {zodResolver} from '@hookform/resolvers/zod';
+import {useForm} from 'react-hook-form';
+import {z} from 'zod';
 
-import {Button} from "@/components/ui/button"
+import {Button} from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -10,41 +10,41 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import {Input} from "@/components/ui/input"
+} from '@/components/ui/form';
+import {Input} from '@/components/ui/input';
 
 const formSchema = z
   .object({
-    firstName: z.string().min(2, {message: "enter a valid name"}),
+    firstName: z.string().min(2, {message: 'enter a valid name'}),
     email: z.string().email(),
     password: z
       .string()
-      .min(8, {message: "password should be atleast 8 characters"}),
+      .min(8, {message: 'password should be atleast 8 characters'}),
     repassword: z
       .string()
-      .min(8, {message: "password should be atleast 8 characters"}),
+      .min(8, {message: 'password should be atleast 8 characters'}),
   })
   .refine((data) => data.password === data.repassword, {
     message: "Passwords don't match.",
-    path: ["repassword"],
-  })
+    path: ['repassword'],
+  });
 
 export function SignupForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      firstName: "",
-      email: "",
-      password: "",
-      repassword: "",
+      firstName: '',
+      email: '',
+      password: '',
+      repassword: '',
     },
-  })
+  });
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values)
+    console.log(values);
   }
   // ...
 
@@ -85,7 +85,7 @@ export function SignupForm() {
             name='password'
             render={({field}) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input placeholder='Create a new password' {...field} />
                 </FormControl>
@@ -99,7 +99,7 @@ export function SignupForm() {
             name='repassword'
             render={({field}) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>Verify Password</FormLabel>
                 <FormControl>
                   <Input placeholder='Repeat your Password' {...field} />
                 </FormControl>
@@ -112,11 +112,11 @@ export function SignupForm() {
         </form>
       </Form>
       <p className='py-5'>
-        Already have an account?{" "}
+        Already have an account?{' '}
         <span className='text-blue-400 px-2 '>
           <a href='#signup'> Login</a>
         </span>
       </p>
     </div>
-  )
+  );
 }
