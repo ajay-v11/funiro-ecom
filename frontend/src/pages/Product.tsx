@@ -1,18 +1,51 @@
+import {BACKEND_URL} from '@/config';
+import axios from 'axios';
+import {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+
 function Product() {
+  const params = useParams();
+
+  const rawSku = params['*']; // Access wildcard parameter
+  console.log('Raw SKU:', rawSku);
+
+  const jwt = localStorage.getItem('token');
+
+  const [details, setDetails] = useState([]);
+
+  useEffect(() => {
+    async function getDetails() {
+      const response = await axios.get(
+        `${BACKEND_URL}product/details/${rawSku}`,
+        {
+          headers: {Authorization: jwt},
+        }
+      );
+
+      setDetails(response.data);
+    }
+
+    getDetails();
+  }, []);
+  console.log(details);
+
   return (
     <div className='product-page pt-20 '>
       {/* Breadcrumbs */}
       <div className='breadcrumbs bg-[#f9f1e7] py-6 px-20 text-sm'>
         <span className='text-slate-500 pr-3'>Home </span> &gt;{' '}
         <span className='text-slate-500 pr-3 pl-3'>Shop</span> &gt;{' '}
-        <span className='font-bold'>Asgaard sofa</span>
+        <span className='font-bold'>{details.name}</span>
       </div>
 
       {/* Main Content */}
       <div className='main-content container mx-auto grid grid-cols-12 gap-6 py-8 px-20'>
         {/* Left Column - Image Gallery */}
         <div className='image-gallery col-span-5 bg-gray-50 rounded-md p-4'>
-          <div className='main-image bg-gray-200 h-64 rounded-md'></div>
+          <div className='main-image bg-purple-800 h-96 rounded-md object-fill'>
+            <img src={details.imageUrl} alt='cant load image'></img>
+          </div>
           <div className='thumbnails mt-4 flex gap-2'>
             <div className='thumbnail bg-gray-200 w-16 h-16 rounded-md'></div>
             <div className='thumbnail bg-gray-200 w-16 h-16 rounded-md'></div>
@@ -23,8 +56,8 @@ function Product() {
         {/* Right Column - Product Details */}
         <div className='product-details col-span-7'>
           {/* Product Title */}
-          <h1 className='text-2xl font-bold mb-2'>Asgaard Sofa</h1>
-          <p className='text-xl text-gray-500 mb-4'>Rs. 250,000.00</p>
+          <h1 className='text-2xl font-bold mb-2'>{details.name}</h1>
+          <p className='text-xl text-gray-500 mb-4'>{details.price}</p>
 
           {/* Ratings */}
           <div className='ratings mb-4'>
@@ -77,7 +110,7 @@ function Product() {
 
           {/* SKU, Category, Tags */}
           <div className='product-meta mt-4 text-sm text-gray-500'>
-            <p>SKU: SS001</p>
+            <p>{details.sku}</p>
             <p>Category: Sofas</p>
             <p>Tags: Sofa, Chair, Home, Shop</p>
           </div>
@@ -96,12 +129,7 @@ function Product() {
           <button className='px-4 py-2 border-b-2'>Reviews [5]</button>
         </div>
         <div className='content mt-4 text-gray-600'>
-          <p>
-            Embodying the raw, wayward spirit of rock 'n' roll, the Kilburn
-            portable active stereo speaker takes the unmistakable look and sound
-            of Marshall... asfohsd dsja sdafhalskdf asdlfhasd sdlahfak
-            asdlfhasdsdfajlk
-          </p>
+          <p>{details.details}</p>
         </div>
       </div>
     </div>
