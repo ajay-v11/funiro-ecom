@@ -25,7 +25,7 @@ model Product {
   name      String   @map("Products_name")
   url       String   @map("Products_url")
   price     String   @map("Products_price")
-  sku       String   @map("Products_sku")
+  sku       String   @unique @map("Products_sku")
   imageUrl  String   @map("Products_imageUrl")
   details   String   @map("Products_details")
   createdAt DateTime @default(now())

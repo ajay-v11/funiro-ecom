@@ -115,3 +115,45 @@ productRouter.get('/allItems', async (c) => {
     return c.text('can not fetch products');
   }
 });
+
+productRouter.get('/details/:skuParam', async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  // Extract the sku value after 'SKU:'
+  const skuParam = c.req.param('skuParam');
+  const sku = decodeURIComponent(skuParam); // Decode the SKU to remove the % and other symbols in the request
+
+  if (!sku) {
+    c.status(400);
+    return c.text('SKU parameter is missing or invalid');
+  }
+
+  try {
+    const productDetails = await prisma.product.findUnique({
+      where: {
+        sku: sku,
+      },
+      select: {
+        name: true,
+        sku: true,
+        imageUrl: true,
+        price: true,
+        details: true,
+        available: true,
+      },
+    });
+
+    if (!productDetails) {
+      c.status(404);
+      return c.text('Product not found');
+    }
+
+    return c.json(productDetails);
+  } catch (e) {
+    console.error('There was an error while fetching the product details:', e);
+    c.status(500);
+    return c.text('Internal server error');
+  }
+});
