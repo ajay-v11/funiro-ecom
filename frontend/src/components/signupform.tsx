@@ -1,7 +1,7 @@
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm} from 'react-hook-form';
-import {z} from 'zod';
-
+import {useNavigate} from 'react-router-dom';
+import axios, {AxiosError} from 'axios';
 import {Button} from '@/components/ui/button';
 import {
   Form,
@@ -12,38 +12,44 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import {Input} from '@/components/ui/input';
-
-const formSchema = z
-  .object({
-    firstName: z.string().min(2, {message: 'enter a valid name'}),
-    email: z.string().email(),
-    password: z
-      .string()
-      .min(8, {message: 'password should be atleast 8 characters'}),
-    repassword: z
-      .string()
-      .min(8, {message: 'password should be atleast 8 characters'}),
-  })
-  .refine((data) => data.password === data.repassword, {
-    message: "Passwords don't match.",
-    path: ['repassword'],
-  });
+import {signupSchema, signupType} from '@appollohera/furnero';
+import {BACKEND_URL} from '@/config';
 
 export function SignupForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<signupType>({
+    resolver: zodResolver(signupSchema),
     defaultValues: {
-      firstName: '',
+      name: '',
       email: '',
       password: '',
       repassword: '',
     },
+    mode: 'onSubmit',
   });
 
+  const navigate = useNavigate();
+
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  async function onSubmit(values: signupType) {
+    console.log('buttonclid');
+    try {
+      const response = await axios.post(`${BACKEND_URL}user/signup`, values);
+      console.log(response.data);
+      //const jwt = `Bearer ${response.data}`;
+      //localStorage.setItem('token', jwt);
+
+      navigate('/shop');
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error.response) {
+          console.error('Server Error:', error.response.data);
+        } else {
+          console.error('Network or Client Error:', error.message);
+        }
+      } else {
+        console.error('Unexpected Error:', (error as Error).message);
+      }
+    }
     console.log(values);
   }
   // ...
@@ -51,15 +57,29 @@ export function SignupForm() {
   return (
     <div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+        <form
+          onSubmit={form.handleSubmit(
+            (values) => {
+              console.log('Validated Values:', values);
+              onSubmit(values);
+            },
+            (errors) => {
+              console.error('Validation Errors:', errors);
+            }
+          )}
+          className='space-y-8'>
           <FormField
             control={form.control}
-            name='firstName'
+            name='name'
             render={({field}) => (
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder='Enter your Name' {...field} />
+                  <Input
+                    placeholder='Enter your Name'
+                    className='bg-white'
+                    {...field}
+                  />
                 </FormControl>
 
                 <FormMessage />
@@ -73,7 +93,11 @@ export function SignupForm() {
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder='Enter your email' {...field} />
+                  <Input
+                    placeholder='Enter your email'
+                    className='bg-white'
+                    {...field}
+                  />
                 </FormControl>
 
                 <FormMessage />
@@ -87,7 +111,11 @@ export function SignupForm() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input placeholder='Create a new password' {...field} />
+                  <Input
+                    placeholder='Create a new password'
+                    className='bg-white'
+                    {...field}
+                  />
                 </FormControl>
 
                 <FormMessage />
@@ -101,14 +129,24 @@ export function SignupForm() {
               <FormItem>
                 <FormLabel>Verify Password</FormLabel>
                 <FormControl>
-                  <Input placeholder='Repeat your Password' {...field} />
+                  <Input
+                    placeholder='Repeat your Password'
+                    className='bg-white'
+                    {...field}
+                  />
                 </FormControl>
 
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type='submit'>Submit</Button>
+          <Button
+            type='submit'
+            onClick={() => {
+              console.log('Button clicked');
+            }}>
+            Submit
+          </Button>
         </form>
       </Form>
       <p className='py-5'>

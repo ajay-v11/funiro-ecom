@@ -13,3 +13,13 @@ export const totalPriceAtom = atom({
 export const favCountAtom = atom({
   key: 'favCount',
 });
+
+export const productsAtom = atom({
+  key: 'product',
+  default: [],
+});
+
+export const productLoading = atom({
+  key: 'loading',
+  default: true,
+});

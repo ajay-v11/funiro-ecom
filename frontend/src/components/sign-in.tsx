@@ -1,10 +1,8 @@
-"use client"
+'use client';
 
-import {zodResolver} from "@hookform/resolvers/zod"
-import {useForm} from "react-hook-form"
-import {z} from "zod"
-
-import {Button} from "@/components/ui/button"
+import {zodResolver} from '@hookform/resolvers/zod';
+import {useForm} from 'react-hook-form';
+import {Button} from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -12,32 +10,38 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import {Input} from "@/components/ui/input"
-
-const formSchema = z.object({
-  username: z.string().email(),
-  password: z
-    .string()
-    .min(8, {message: "password should be atleast 8 characters"}),
-})
+} from '@/components/ui/form';
+import {Input} from '@/components/ui/input';
+import {signinSchema, singinType} from '@appollohera/furnero';
+import {useNavigate} from 'react-router-dom';
+import axios from 'axios';
+import {BACKEND_URL} from '@/config';
 
 export function Signin() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<singinType>({
+    resolver: zodResolver(signinSchema),
     defaultValues: {
-      username: "",
-      password: "",
+      email: '',
+      password: '',
     },
-  })
+  });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  const navigate = useNavigate();
+
+  // submit handler.
+  async function onSubmit(values: singinType) {
+    try {
+      const response = await axios.post(`${BACKEND_URL}user/signin`, values);
+      console.log(response);
+      const jwt = `Bearer ${response.data.token}`;
+      localStorage.setItem('token', jwt);
+      console.log('signin succesfull');
+
+      navigate('/shop');
+    } catch (e) {
+      console.log('can not signin', e);
+    }
   }
-  // ...
 
   return (
     <div>
@@ -45,7 +49,7 @@ export function Signin() {
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
           <FormField
             control={form.control}
-            name='username'
+            name='email'
             render={({field}) => (
               <FormItem>
                 <FormLabel>Username</FormLabel>
@@ -85,11 +89,11 @@ export function Signin() {
         </form>
       </Form>
       <p className='py-5'>
-        Don't have an Account?{" "}
+        Don't have an Account?{' '}
         <span className='text-blue-400 px-2 '>
           <a href='#signup'> Signup</a>
         </span>
       </p>
     </div>
-  )
+  );
 }

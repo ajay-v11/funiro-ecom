@@ -1,5 +1,3 @@
-import {Banner} from '@/components/Banner';
-
 function Product() {
   return (
     <div className='product-page pt-20 '>
