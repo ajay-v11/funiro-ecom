@@ -19,6 +19,7 @@ model User {
   name     String
   password String
 }
+//add a seperate cart model, that gets linked with the user, each user can have many carts and the cart has ordered processed or not if processed gets deleted or stored in the previous orders section
 
 model Product {
   id        Int      @id @default(autoincrement())
